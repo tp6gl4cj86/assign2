@@ -94,13 +94,13 @@ class Froggy
 		if(isInPond()) 
 		{
 			speed = 40;
-			boolean isCollision = isCollision(obj_center_x, obj_center_y, obj_w, obj_h);
-			// if(isCollision)
-			// {
-			// 	center_x += obj_speed;
-			// 	center_y = obj_center_y;
-			// }
-			return !isCollision;
+			boolean isCollisioned = isCollision(obj_center_x, obj_center_y, obj_w, obj_h);
+			if(isCollisioned)
+			{
+				center_x += obj_speed;
+				center_y = obj_center_y;
+			}
+			return !isCollisioned;
 		}
 		else
 		{
