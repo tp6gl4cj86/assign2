@@ -148,17 +148,17 @@ void runGAME_RUN()
 	 		}
 	 	}
  	}
- 	if(froggy.isAlive && isDead)
- 	{
- 		for(int i=0; i<turtle.length; i++)
-	 	{
-	 		if(!froggy.checkIsDead(turtle[i].center_x, turtle[i].center_y, turtle[i].turtle_w, turtle[i].turtle_h + 15, turtle[i].speed))
-	 		{
-	 			isDead = false;
-	 			break;
-	 		}
-	 	}
- 	}
+ 	// if(froggy.isAlive && isDead)
+ 	// {
+ 	// 	for(int i=0; i<turtle.length; i++)
+	 // 	{
+	 // 		if(!froggy.checkIsDead(turtle[i].center_x, turtle[i].center_y, turtle[i].turtle_w, turtle[i].turtle_h + 15, turtle[i].speed))
+	 // 		{
+	 // 			isDead = false;
+	 // 			break;
+	 // 		}
+	 // 	}
+ 	// }
  	if(froggy.isAlive && isDead)
  	{
  		goDead();
