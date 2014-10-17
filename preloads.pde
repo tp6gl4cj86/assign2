@@ -8,7 +8,7 @@
                   data/RCar1.png,
                   data/RCar2.png,
                   data/win.png,
-                  data/Log_84x20,
+                  data/Log_84x20.png,
                   data/Log_116x20.png,
                   data/Log_180x20.png,
                   data/LTruck.png,
