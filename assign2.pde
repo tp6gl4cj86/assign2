@@ -163,17 +163,17 @@ void runGAME_RUN()
  	{
  		goDead();
  	}
- 	// if(froggy.isAlive)
- 	// {
- 	// 	for(int i=0; i<car.length; i++)
-	 // 	{
-	 // 		if(froggy.checkIsDead(car[i].center_x, car[i].center_y, car[i].car_w, car[i].car_h, car[i].speed))
-	 // 		{
-	 // 			goDead();
-		// 		break;
-	 // 		}
-	 // 	}
- 	// }
+ 	if(froggy.isAlive)
+ 	{
+ 		for(int i=0; i<car.length; i++)
+	 	{
+	 		if(froggy.checkIsDead(car[i].center_x, car[i].center_y, car[i].car_w, car[i].car_h, car[i].speed))
+	 		{
+	 			goDead();
+				break;
+	 		}
+	 	}
+ 	}
 
  	// FROG_DIE timer
 	if(STATE == FROG_DIE && die_timer + 1000 < millis())
@@ -202,7 +202,7 @@ void runGAME_LOSE()
 	fill(0xff, 0xff, 0xff);
 	textAlign(CENTER, CENTER);
 	textSize(32);
-	text("YOU LOSE", width/2, 100);
+	text("YOU LOSE", width/2, 300);
 	PImage img = loadImage("data/lose.png");
 	image(img, (width-262)/2, (height-149)/2);
 }
@@ -213,7 +213,7 @@ void runGAME_WIN()
 	fill(0xff, 0xff, 0xff);
 	textAlign(CENTER, CENTER);
 	textSize(32);
-	text("YOU WIN!!", width/2, 100);
+	text("YOU WIN!!", width/2, 300);
 	PImage img = loadImage("data/win.png"); 
 	image(img, (width-226)/2, (height-185)/2);
 }
