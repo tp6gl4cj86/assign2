@@ -13,6 +13,7 @@ final int FROG_DIE   = 2;
 final int GAME_LOSE  = 3;
 final int GAME_WIN   = 4;
 
+int game_timer;
 int die_timer;
 
 void setup() 
@@ -107,6 +108,14 @@ void runGAME_RUN()
  	// time layout
  	fill(0);
  	rect(0, height-60, width, 60);	
+ 	// time
+ 	fill(0xff, 0xe6, 0x6f);println();
+ 	rect(100 + ((width-280)*(millis()-game_timer))/60000, height-30, width-180, 30);	
+ 	fill(0);
+ 	rect(width-80, height-30, 80, 30);
+	fill(0xff, 0xe6, 0x6f);
+	textSize(16);
+	text("TIME", width-80, height-30, 80, 30);
 
  	// LIFE
  	for(int i=LIFE-1; i>=0; i--)
@@ -136,6 +145,11 @@ void runGAME_RUN()
  	}
 
  	// check dead
+ 	if(froggy.isAlive && millis() - game_timer > 60000)
+ 	{
+ 		goDead();
+ 	}
+
  	boolean isDead = true;
  	if(froggy.isAlive)
  	{
@@ -148,7 +162,7 @@ void runGAME_RUN()
 	 		}
 	 	}
  	}
- 	if(froggy.isAlive && isDead)
+ 	if(froggy.isAlive)
  	{
  		for(int i=0; i<turtle.length; i++)
 	 	{
@@ -163,7 +177,7 @@ void runGAME_RUN()
  	{
  		goDead();
  	}
- 	if(froggy.isAlive)
+ 	if(froggy.isAlive && !froggy.isInPond())
  	{
  		for(int i=0; i<car.length; i++)
 	 	{
@@ -179,6 +193,7 @@ void runGAME_RUN()
 	if(STATE == FROG_DIE && die_timer + 1000 < millis())
 	{
 		froggy.initPosition();
+		game_timer = millis();
 		STATE = GAME_RUN;
 	}
 }
@@ -202,7 +217,7 @@ void runGAME_LOSE()
 	fill(0xff, 0xff, 0xff);
 	textAlign(CENTER, CENTER);
 	textSize(32);
-	text("YOU LOSE", width/2, 300);
+	text("YOU LOSE", width/2, 250);
 	PImage img = loadImage("data/lose.png");
 	image(img, (width-262)/2, (height-149)/2);
 }
@@ -213,7 +228,7 @@ void runGAME_WIN()
 	fill(0xff, 0xff, 0xff);
 	textAlign(CENTER, CENTER);
 	textSize(32);
-	text("YOU WIN!!", width/2, 300);
+	text("YOU WIN!!", width/2, 250);
 	PImage img = loadImage("data/win.png"); 
 	image(img, (width-226)/2, (height-185)/2);
 }
@@ -224,7 +239,11 @@ void keyPressed()
 	{
 		switch (STATE) 
 		{
-			case GAME_START : STATE = GAME_RUN;   break;
+			case GAME_START : 
+				game_timer = millis();
+				STATE = GAME_RUN;   
+				break;
+
 			case GAME_LOSE  : 
 			case GAME_WIN   : 
 				LIFE = 3;

@@ -29,6 +29,7 @@ final int FROG_DIE   = 2;
 final int GAME_LOSE  = 3;
 final int GAME_WIN   = 4;
 
+int game_timer;
 int die_timer;
 
 public void setup() 
@@ -123,6 +124,14 @@ public void runGAME_RUN()
  	// time layout
  	fill(0);
  	rect(0, height-60, width, 60);	
+ 	// time
+ 	fill(0xff, 0xe6, 0x6f);println();
+ 	rect(100 + ((width-280)*(millis()-game_timer))/60000, height-30, width-180, 30);	
+ 	fill(0);
+ 	rect(width-80, height-30, 80, 30);
+	fill(0xff, 0xe6, 0x6f);
+	textSize(16);
+	text("TIME", width-80, height-30, 80, 30);
 
  	// LIFE
  	for(int i=LIFE-1; i>=0; i--)
@@ -152,6 +161,11 @@ public void runGAME_RUN()
  	}
 
  	// check dead
+ 	if(froggy.isAlive && millis() - game_timer > 6000)
+ 	{
+ 		goDead();
+ 	}
+
  	boolean isDead = true;
  	if(froggy.isAlive)
  	{
@@ -164,7 +178,7 @@ public void runGAME_RUN()
 	 		}
 	 	}
  	}
- 	if(froggy.isAlive && isDead)
+ 	if(froggy.isAlive)
  	{
  		for(int i=0; i<turtle.length; i++)
 	 	{
@@ -179,22 +193,23 @@ public void runGAME_RUN()
  	{
  		goDead();
  	}
- 	// if(froggy.isAlive)
- 	// {
- 	// 	for(int i=0; i<car.length; i++)
-	 // 	{
-	 // 		if(froggy.checkIsDead(car[i].center_x, car[i].center_y, car[i].car_w, car[i].car_h, car[i].speed))
-	 // 		{
-	 // 			goDead();
-		// 		break;
-	 // 		}
-	 // 	}
- 	// }
+ 	if(froggy.isAlive && !froggy.isInPond())
+ 	{
+ 		for(int i=0; i<car.length; i++)
+	 	{
+	 		if(froggy.checkIsDead(car[i].center_x, car[i].center_y, car[i].car_w, car[i].car_h, car[i].speed))
+	 		{
+	 			goDead();
+				break;
+	 		}
+	 	}
+ 	}
 
  	// FROG_DIE timer
 	if(STATE == FROG_DIE && die_timer + 1000 < millis())
 	{
 		froggy.initPosition();
+		game_timer = millis();
 		STATE = GAME_RUN;
 	}
 }
@@ -218,7 +233,7 @@ public void runGAME_LOSE()
 	fill(0xff, 0xff, 0xff);
 	textAlign(CENTER, CENTER);
 	textSize(32);
-	text("YOU LOSE", width/2, 100);
+	text("YOU LOSE", width/2, 250);
 	PImage img = loadImage("data/lose.png");
 	image(img, (width-262)/2, (height-149)/2);
 }
@@ -229,7 +244,7 @@ public void runGAME_WIN()
 	fill(0xff, 0xff, 0xff);
 	textAlign(CENTER, CENTER);
 	textSize(32);
-	text("YOU WIN!!", width/2, 100);
+	text("YOU WIN!!", width/2, 250);
 	PImage img = loadImage("data/win.png"); 
 	image(img, (width-226)/2, (height-185)/2);
 }
@@ -240,7 +255,11 @@ public void keyPressed()
 	{
 		switch (STATE) 
 		{
-			case GAME_START : STATE = GAME_RUN;   break;
+			case GAME_START : 
+				game_timer = millis();
+				STATE = GAME_RUN;   
+				break;
+
 			case GAME_LOSE  : 
 			case GAME_WIN   : 
 				LIFE = 3;
@@ -452,13 +471,13 @@ class Froggy
 		if(isInPond()) 
 		{
 			speed = 40;
-			boolean isCollision = isCollision(obj_center_x, obj_center_y, obj_w, obj_h);
-			if(isCollision)
+			boolean isCollisioned = isCollision(obj_center_x, obj_center_y, obj_w, obj_h);
+			if(isCollisioned)
 			{
 				center_x += obj_speed;
 				center_y = obj_center_y;
 			}
-			return !isCollision;
+			return !isCollisioned;
 		}
 		else
 		{
@@ -469,7 +488,7 @@ class Froggy
 
 	public boolean isInPond()
 	{
-		return center_y - froggy_h/2 < 32 + 32 + 45 * 7;
+		return (center_y - froggy_h/2) < (32 + 32 + 45 * 7);
 	}
 
 	public boolean isCollision(int obj_center_x, int obj_center_y, int obj_w, int obj_h)
@@ -662,7 +681,7 @@ class Wood
                   data/RCar1.png,
                   data/RCar2.png,
                   data/win.png,
-                  data/Log_84x20,
+                  data/Log_84x20.png,
                   data/Log_116x20.png,
                   data/Log_180x20.png,
                   data/LTruck.png,

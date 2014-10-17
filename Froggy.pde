@@ -111,7 +111,7 @@ class Froggy
 
 	boolean isInPond()
 	{
-		return center_y - froggy_h/2 < 32 + 32 + 45 * 7;
+		return (center_y - froggy_h/2) < (32 + 32 + 45 * 7);
 	}
 
 	boolean isCollision(int obj_center_x, int obj_center_y, int obj_w, int obj_h)
