@@ -91,18 +91,18 @@ class Froggy
 			return false;
 		}
 
-		// if(isInPond()) 
-		// {
-		// 	speed = 40;
-		// 	boolean isCollision = isCollision(obj_center_x, obj_center_y, obj_w, obj_h);
-		// 	if(isCollision)
-		// 	{
-		// 		center_x += obj_speed;
-		// 		center_y = obj_center_y;
-		// 	}
-		// 	return !isCollision;
-		// }
-		// else
+		if(isInPond()) 
+		{
+			speed = 40;
+			boolean isCollision = isCollision(obj_center_x, obj_center_y, obj_w, obj_h);
+			// if(isCollision)
+			// {
+			// 	center_x += obj_speed;
+			// 	center_y = obj_center_y;
+			// }
+			return !isCollision;
+		}
+		else
 		{
 			speed = 20;
 			return isCollision(obj_center_x, obj_center_y, obj_w, obj_h);
