@@ -142,6 +142,7 @@ void runGAME_RUN()
  	if(froggy.checkIsWin())
  	{
  		STATE = GAME_WIN;
+ 		return;
  	}
 
  	// check dead

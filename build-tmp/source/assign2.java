@@ -159,12 +159,12 @@ public void runGAME_RUN()
  	{
  		STATE = GAME_WIN;
  	}
-
+println(froggy.center_y - froggy.froggy_h/2);
  	// check dead
- 	if(froggy.isAlive && millis() - game_timer > 6000)
- 	{
- 		goDead();
- 	}
+ 	// if(froggy.isAlive && millis() - game_timer > 60000)
+ 	// {
+ 	// 	goDead();
+ 	// }
 
  	boolean isDead = true;
  	if(froggy.isAlive)
@@ -189,21 +189,21 @@ public void runGAME_RUN()
 	 		}
 	 	}
  	}
- 	if(froggy.isAlive && isDead)
- 	{
- 		goDead();
- 	}
- 	if(froggy.isAlive && !froggy.isInPond())
- 	{
- 		for(int i=0; i<car.length; i++)
-	 	{
-	 		if(froggy.checkIsDead(car[i].center_x, car[i].center_y, car[i].car_w, car[i].car_h, car[i].speed))
-	 		{
-	 			goDead();
-				break;
-	 		}
-	 	}
- 	}
+ 	// if(froggy.isAlive && isDead)
+ 	// {
+ 	// 	goDead();
+ 	// }
+ 	// if(froggy.isAlive && !froggy.isInPond())
+ 	// {
+ 	// 	for(int i=0; i<car.length; i++)
+	 // 	{
+	 // 		if(froggy.checkIsDead(car[i].center_x, car[i].center_y, car[i].car_w, car[i].car_h, car[i].speed))
+	 // 		{
+	 // 			goDead();
+		// 		break;
+	 // 		}
+	 // 	}
+ 	// }
 
  	// FROG_DIE timer
 	if(STATE == FROG_DIE && die_timer + 1000 < millis())
@@ -517,7 +517,7 @@ class Froggy
 
 	public boolean checkIsWin()
 	{
-		return center_y - froggy_h/2 <= 100;
+		return center_y - froggy_h/2 <= 90;
 	}
 
 }
